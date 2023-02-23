@@ -6,7 +6,8 @@ Connection();
 const UserRouter=require('./routes/userRoutes');
 
 const PORT=process.env.PORT;
-app.use('/',UserRouter);
+app.use(express.json());
+app.use('/users',UserRouter);
 
 
 
