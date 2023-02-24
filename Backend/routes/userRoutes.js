@@ -5,7 +5,7 @@ const {getallUser,addUser,updateUser}=require('../Controllers/userController');
 
 userRouter.get('/',getallUser);
 userRouter.post('/signup',addUser);
-userRouter.put("/:id",updateUser);
+userRouter.put("/:email",updateUser);
 
 
 module.exports=userRouter;

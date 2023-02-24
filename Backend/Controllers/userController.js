@@ -45,28 +45,29 @@ return res.status(200).json({users})
 }
 
 const updateUser=async(req,res,next)=>{
- const id=req.params.id;
- const {name,email,password}=req.body;
+// const id=req.params.id;
+  let datatobeUpdated=req.body;
+
+  const {name,email,password}=req.body;
 if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.trim()==="")
 {
     return res.status(422).json({message:"Invalid Input data"});
     
 }
 let users;
-try{
-users=user.findByIdAndUpdate(id,{name,email,password:hashedPassword});
 
+try{
+users= await user.findOneAndUpdate({email:req.params.email},datatobeUpdated);
 
 }
 catch(err)
 {
-    return res.json(err.message);
+    return res.send(err.message);
 }
 if(!users){
 return res.status(500).json({message:"unexpected User"})
 }
-res.status(200).json({message:"Updated User",
-User:users});
+res.status(200).json({message:"Updated User",User:users});
 }
 
 const deleteUser=async(req,res,next)=>{
