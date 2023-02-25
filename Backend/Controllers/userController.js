@@ -71,7 +71,52 @@ res.status(200).json({message:"Updated User",User:users});
 }
 
 const deleteUser=async(req,res,next)=>{
+    const id=req.params.id;
+    let users;
+    try{
+        users= await user.findByIdAndDelete()
+    }
     
+    catch(e)
+    {
+        return res.send(e.message);
+    }
+    if(!users)
+    {
+        return res.status(500).json({message:"unexpected User"})
+
+        
+    }
+    res.status(200).json({message:"Delete User",User:users});
 }
 
-module.exports={getallUser,addUser,updateUser}
+const login =async(req,res,next)=>{
+const {name,email,password}=req.body;
+if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.trim()==="")
+{
+    return res.status(400).json({message:"Invalid Input data"});
+    
+}
+let existingUser;
+try{
+    existingUser =await user.findOne({email});
+}
+catch(e)
+{
+    return res.send(e.message);
+}
+if(!existingUser)
+{
+    return res.status(404).json({message:"unable to find the user from this id"})
+}
+const isPasswordCorrect=bcrypt.compareSync(password,existingUser.password)
+if(!isPasswordCorrect)
+{
+    return res.status(400).json({message:"Invalid Credentials"});
+}
+return res.status(200).json({message:"login Succesfull"})
+}
+
+
+
+module.exports={getallUser,addUser,updateUser,deleteUser,login}
