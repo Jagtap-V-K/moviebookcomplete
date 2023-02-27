@@ -6,8 +6,8 @@ const user = require('../Models/User');
 
 userRouter.get('/',getallUser);
 userRouter.post('/signup',addUser);
-userRouter.put("/:email",updateUser);
+userRouter.put("/:id",updateUser);
 userRouter.delete('/:id',deleteUser);
-userRouter.post('/',login);
+userRouter.post('/login',login);
 
 module.exports=userRouter;

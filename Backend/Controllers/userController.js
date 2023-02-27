@@ -45,8 +45,8 @@ return res.status(200).json({users})
 }
 
 const updateUser=async(req,res,next)=>{
-// const id=req.params.id;
-  let datatobeUpdated=req.body;
+ const id=req.params.id;
+  //let datatobeUpdated=req.body;
 
   const {name,email,password}=req.body;
 if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.trim()==="")
@@ -57,7 +57,7 @@ if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.
 let users;
 
 try{
-users= await user.findOneAndUpdate({email:req.params.email},datatobeUpdated);
+users= await user.findByIdAndUpdate(id,{name,email,password});
 
 }
 catch(err)
@@ -74,7 +74,7 @@ const deleteUser=async(req,res,next)=>{
     const id=req.params.id;
     let users;
     try{
-        users= await user.findByIdAndDelete()
+        users= await user.findByIdAndDelete(id)
     }
     
     catch(e)
@@ -91,8 +91,8 @@ const deleteUser=async(req,res,next)=>{
 }
 
 const login =async(req,res,next)=>{
-const {name,email,password}=req.body;
-if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.trim()==="")
+const {email,password}=req.body;
+if(!email && email.trim() === "" && !password && password.trim() === "")
 {
     return res.status(400).json({message:"Invalid Input data"});
     

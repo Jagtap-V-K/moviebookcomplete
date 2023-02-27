@@ -1,5 +1,6 @@
 const admin=require('../Models/admin');
 const bcrypt=require('bcryptjs');
+const jwt = require( "jsonwebtoken");
 const addAdmin=async(req,res,next)=>{
     const {email,password}=req.body;
 
@@ -20,7 +21,7 @@ const addAdmin=async(req,res,next)=>{
     const hashedPassword=bcrypt.hashSync(password);
     try{
         admins=new admin({email,password:hashedPassword})
-        admins=await admin.save();
+        admins=await admins.save();
 
     }
     catch(err)
@@ -30,7 +31,7 @@ const addAdmin=async(req,res,next)=>{
     if(!admins){
         return res.status(400).json({message:"unable to create admin"});
     }
-    res.status(201).josn({message:"Admin Create"});
+    res.status(201).json({message:"Admin Created"});
 
 }
 
@@ -63,7 +64,7 @@ const token=jwt.sign({id:existingAdmin._id},process.env.SECERT_KEY,{
     expiresIn:"7d"
 })
 
-res.status(200).josn({message:"Login Succesfull",token,id:existingAdmin._id});
+res.status(200).json({message:"Login Succesfull",token,id:existingAdmin._id});
 }
 
 
