@@ -73,4 +73,28 @@ const getallMovies=async(req,res,next)=>{
     return res.status(200).json({movies})
 
 }
-module.exports={addMovies,getallMovies}
+
+
+
+const getMoviesbyId=async(req,res)=>{
+    const id=req.params.id;
+    let movie;
+    try{
+        movie=await Movies.findById(id);
+
+    }
+    catch(err)
+    {
+        return res.send(err.message);
+    }
+
+    if(!movie)
+    {
+        return res.status(404).json({
+            message:'movie not found'
+        })
+    }
+return res.status(200).json({Result:movie});
+
+}
+module.exports={addMovies,getallMovies,getMoviesbyId}

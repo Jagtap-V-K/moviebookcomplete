@@ -10,6 +10,7 @@ Connection();
 const UserRouter=require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const movieRouter = require('./routes/moviesRoutes');
+const bookingRouter=require('./routes/bookingRoutes');
 
 // PORT NUMBER 
 const PORT=process.env.PORT;
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use('/users',UserRouter);
 app.use('/admin',adminRouter);
 app.use('/movies',movieRouter);
+app.use('/booking',bookingRouter)
+
 
 
 app.listen(PORT,()=>{
