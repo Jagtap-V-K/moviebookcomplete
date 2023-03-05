@@ -11,9 +11,11 @@ const UserRouter=require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const movieRouter = require('./routes/moviesRoutes');
 const bookingRouter=require('./routes/bookingRoutes');
-
+const cors=require('cors');
 // PORT NUMBER 
 const PORT=process.env.PORT;
+app.use(cors());
+
 
 // middleware routes
 app.use(express.json());
