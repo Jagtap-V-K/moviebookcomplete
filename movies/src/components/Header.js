@@ -5,6 +5,7 @@ import { getAllMovies } from '../api-helper/api-helpers'
 import { Link } from 'react-router-dom'
 // import {Link,Routes,Route} from 'react-router-dom';
 // const dummyArray=["IronMan","Pathaan","Selfie","ABCD"]
+
 const Header = () => {
 const [value,setvalue]=useState(0);
 const [movies,setmovies]=useState([]);
@@ -28,7 +29,7 @@ console.log(err)
     <Autocomplete
        
         freeSolo
-        options={movies && movies.map((option) => option.title)}
+        options={movies.map((option) => option.title)}
         renderInput={(params) => <TextField sx={{input:{color:"white"}}} variant ='standard' {...params} placeholder="Search Movies" />}
       />
     </Box>

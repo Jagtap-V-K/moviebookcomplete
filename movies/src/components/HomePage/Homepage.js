@@ -30,7 +30,7 @@ getAllMovies().then((data)=>setmovies(data.movies)).catch((err)=>console.log(err
 
 
  <Box display={"flex"} margin="auto" width="80%" justifyContent={"center"} flexWrap="wrap">
- {movies&&movies.map((item,index)=>
+ {movies.map((item,index)=>
   <MovieItems id={item.id} title={item.title} posterUrl={item.posterUrl} releaseDate={item.releaseDate} key={index}/>
   )}
 
