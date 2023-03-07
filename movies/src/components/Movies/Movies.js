@@ -16,7 +16,7 @@ const Movies = () => {
   <Typography variant='h4' padding={2} textAlign='center' bgcolor={'#900C3F'} width="40%" color="white" margin={"auto"}>
     All Movies
   </Typography>
-  <Box width={"100%"} margin={'auto'} display={"flex"} justifyContent='center' flexWrap={'wrap'}>
+  <Box width={"100%"} margin={'auto'} marginTop='5' display={"flex"} justifyContent='flex-start' flexWrap={'wrap'}>
     {Movies.map((item,idex)=>
       <MovieItems id={item._id} title={item.title} posterUrl={item.posterUrl} releaseDate={item.releaseDate} key={idex}/>
     )}
