@@ -67,7 +67,22 @@ const token=jwt.sign({id:existingAdmin._id},process.env.SECERT_KEY,{
 res.status(200).json({message:"Login Succesfull",token,id:existingAdmin._id});
 }
 
+const getAdmins=async(req,res)=>{
+    let admins;
+    try{
+        admins=await admin.find();
+    }
+    catch(e)
+    {
+        return res.send(e.message);
+    }
+    if(!admins)
+    {
+        return res.status(400).json({message:"cannot get admin"});
+    }
+    return res.status(200).json({admins});
+}
 
 
 
-module.exports={addAdmin,adminlogin}
+module.exports={addAdmin,adminlogin,getAdmins}

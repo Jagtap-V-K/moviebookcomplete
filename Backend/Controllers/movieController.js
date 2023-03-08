@@ -1,5 +1,7 @@
 const Movies=require("../Models/Movie");
 const jwt=require('jsonwebtoken');
+const mongoose=require('mongoose');
+const admin = require("../Models/admin");
 const addMovies=async(req,res)=>{
     const extractToken= req.headers.authorization.split(" ")[1];
 
@@ -23,6 +25,7 @@ const addMovies=async(req,res)=>{
         }
     })
     const {title,description,releaseDate,posterUrl,featured,actors}=req.body;
+    console.log(releaseDate);
     if(!title && title.trim() === "" && !description && description.trim()=== "" && !posterUrl&&posterUrl.trim()=== "")
     {
         return res.status(422).json({
@@ -41,7 +44,16 @@ const addMovies=async(req,res)=>{
             admin:adminId,
             actors
         })
-        movie=await Movies.save(true);
+        
+        const session=await mongoose.startSession();
+        const adminUser= await admin.findById(adminId);
+
+        session.startTransaction();
+        await movie.save({session})
+        adminUser.addedMovies.push(movie);
+        await adminUser.save({session});
+
+        await session.commitTransaction();
     }
     catch(err)
     {

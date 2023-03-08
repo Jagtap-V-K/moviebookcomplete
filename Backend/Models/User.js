@@ -14,6 +14,11 @@ const UserSchema=new mongoose.Schema({
         required:true,
         minlength:6,
     },
+    bookings:[{
+        type:mongoose.Types.ObjectId,
+        ref:'Booking',
+        required:true
+    }]
 });
 const user=mongoose.model('user',UserSchema);
 module.exports=user;

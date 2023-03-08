@@ -25,8 +25,9 @@ bookings:[{
 
 }],
 admin:{
-type:String,
-required:true
+type:mongoose.Types.ObjectId,
+ref:"admin",
+ required:true
 }
 }) 
 const Movies=mongoose.model("Movies",movieSchema);
