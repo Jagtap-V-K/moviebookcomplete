@@ -1,5 +1,6 @@
 const user=require("../Models/User");
 const bcrypt=require("bcryptjs")
+
 const getallUser=async(req,res,next)=>{
     let users;
     try{
@@ -44,6 +45,7 @@ if(!users)
 return res.status(200).json({users})
 }
 
+
 const updateUser=async(req,res,next)=>{
  const id=req.params.id;
   //let datatobeUpdated=req.body;
@@ -55,7 +57,6 @@ if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.
     
 }
 let users;
-
 try{
 users= await user.findByIdAndUpdate(id,{name,email,password});
 
@@ -69,6 +70,7 @@ return res.status(500).json({message:"unexpected User"})
 }
 res.status(200).json({message:"Updated User",User:users});
 }
+
 
 const deleteUser=async(req,res,next)=>{
     const id=req.params.id;
