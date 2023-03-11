@@ -20,7 +20,7 @@ const getallUser=async(req,res,next)=>{
     return res.status(200).json({users})
 };
 
-const addUser=async(req,res,next)=>{
+const signup=async(req,res,next)=>{
 const {name,email,password}=req.body;
 if(!name&&name.trim()=== "" && !email&&email.trim()==="" && !password&&password.trim()==="")
 {
@@ -42,7 +42,7 @@ if(!users)
 {
     return res.status(500).json({message:'unexpected error'});
 }
-return res.status(200).json({users})
+return res.status(201).json({id:users._id})
 }
 
 
@@ -116,9 +116,12 @@ if(!isPasswordCorrect)
 {
     return res.status(400).json({message:"Invalid Credentials"});
 }
-return res.status(200).json({message:"login Succesfull"})
+return res.status(200).json({message:"login Succesfull",
+id:existingUser._id
+})
 }
 
 
 
-module.exports={getallUser,addUser,updateUser,deleteUser,login}
+
+module.exports={getallUser,updateUser,deleteUser,login,signup};

@@ -106,7 +106,7 @@ const getMoviesbyId=async(req,res)=>{
             message:'movie not found'
         })
     }
-return res.status(200).json({Result:movie});
+return res.status(200).json({movie});
 
 }
 module.exports={addMovies,getallMovies,getMoviesbyId}
