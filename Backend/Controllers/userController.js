@@ -1,6 +1,6 @@
 const user=require("../Models/User");
 const bcrypt=require("bcryptjs")
-
+const Bookings=require('../Models/Booking');
 const getallUser=async(req,res,next)=>{
     let users;
     try{
@@ -120,8 +120,33 @@ return res.status(200).json({message:"login Succesfull",
 id:existingUser._id
 })
 }
+const getUserById = async (req, res, next) => {
+    const id = req.params.id;
+    let User;
+    try {
+        User = await user.findById(id);
+    }
+    catch(err) {
+        return console.log(err);
+    }
+    if (!User) {
+        return res.status(500).json({ message: "Unexpected Error Occurred" })
+    }
+    return res.status(200).json({ User });
+}
+const getBookingsofUser = async (req, res) => {
+    const id = req.params.id;
+    let bookings;
+    try {
+        bookings = await Bookings.find({user:id});
+    } catch(err) {
+        return console.log(err);
+    }
+    if (!bookings) {
+        return res.status(500).json({ message: "Unexpected Error Occurred" })
+    }
+    return res.status(200).json({ bookings});   
+}
 
 
-
-
-module.exports={getallUser,updateUser,deleteUser,login,signup};
+module.exports={getallUser,updateUser,deleteUser,login,signup,getUserById,getBookingsofUser};

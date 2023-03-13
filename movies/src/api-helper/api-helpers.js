@@ -70,3 +70,43 @@ export const newBooking=async(data)=>{
         const resdata=await res.data;
         return resdata;
 }
+export const getUserBooking=async()=>{
+    const id=localStorage.getItem("userId");
+    console.log(id);
+    const res=await axios.get(`/users/bookings/${id}`).catch((err)=>{
+        console.log(err);
+    })
+        if(res.status!==200)
+        {
+            console.log("unexpected error");
+        }
+        const resData= await res.data;
+        return resData;
+   
+}
+export const deleteBooking=async(id)=>{
+
+    const res=await axios.delete(`/booking/${id}`).catch((err)=>{
+        console.log(err);
+    })
+    if(res.status!==200)
+    {
+        console.log("unexpected error");
+    }
+    const resData= await res.data;
+    return resData;
+    
+}
+export const getUserDetails =async()=>{
+    const id = localStorage.getItem("userId");
+
+    const res = await axios.get(`/users/${id}`)
+    .catch((err) => console.log(err));
+    
+    if (res.status !== 200) { 
+     return console.log("unexpected Error");   
+    }
+    const respData = await res.data;
+    console.log(respData);
+    return respData;
+}

@@ -7,6 +7,7 @@ import Booking from "./components/Bookings/Booking";
 import Header from "./components/Header";
 import Homepage from "./components/HomePage/Homepage";
 import Movies from "./components/Movies/Movies";
+import UserProfile from "./Profile/UserProfile";
 import { adminActions, userActions } from "./store";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       <Route path="/admin" element={<Admin/>}/>
       <Route path="/auth" element={<Auth/>}/>
       <Route path="/booking/:id" element={<Booking/>}/>
+      <Route path="/user" element={<UserProfile/>}/>
       </Routes>
     </section>
     </div>

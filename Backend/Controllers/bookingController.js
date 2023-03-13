@@ -10,6 +10,7 @@ const Booking=async(req,res,next)=>{
     try{
         exisitingMovie=await Movies.findById(movie);
         exisitingUser=await users.findById(user);
+        console.log(exisitingUser,exisitingMovie)
     }   
     catch(e)
     {
@@ -37,7 +38,16 @@ const Booking=async(req,res,next)=>{
          session.startTransaction();
         exisitingUser.bookings.push(newBooking)
         exisitingMovie.bookings.push(newBooking);
-        newBooking=await newBooking.save();
+      
+         
+        await exisitingUser.save({ session });
+        await exisitingMovie.save({ session });
+        await newBooking.save({ session });
+        
+        session.commitTransaction();
+        
+        
+        // newBooking = await newBooking.save();
       
     }
     catch(e)
@@ -60,4 +70,28 @@ const Booking=async(req,res,next)=>{
 const getbookbyId=async(req,res)=>{
     
 }
-module.exports=Booking;
+
+const deleteBooking = async (req, res, next) => {
+    const id = req.params.id;
+    let booking;
+    try {
+        booking = await Bookings.findByIdAndRemove(id).populate("user movie");
+        console.log(booking);
+        const session = await mongoose.startSession();
+        session.startTransaction();
+       await booking.user.bookings.pull(booking);
+       await booking.movie.bookings.pull(booking);
+        
+        await booking.movie.save({ session });
+        await booking.user.save({ session });
+        session.commitTransaction(); 
+    }
+    catch (err) {
+        return console.error(err);
+    }
+    if (!booking) {
+        return res.status(404).json({ message: "Booking not found by given id" });
+    }
+    return res.status(200).json({ message: "Booking deleted successfully" });
+}
+module.exports={Booking,deleteBooking}
