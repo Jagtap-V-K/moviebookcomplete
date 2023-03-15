@@ -24,8 +24,14 @@ const addMovies=async(req,res)=>{
             return;
         }
     })
+
     const {title,description,releaseDate,posterUrl,featured,actors}=req.body;
-    console.log(releaseDate);
+    console.log(req.body);
+
+        if(res.status==400)
+        {
+            res.send("error");
+        }
     if(!title && title.trim() === "" && !description && description.trim()=== "" && !posterUrl&&posterUrl.trim()=== "")
     {
         return res.status(422).json({

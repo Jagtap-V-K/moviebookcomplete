@@ -6,8 +6,11 @@ import Auth from "./components/auth/Auth";
 import Booking from "./components/Bookings/Booking";
 import Header from "./components/Header";
 import Homepage from "./components/HomePage/Homepage";
+import AddMovies from "./components/Movies/AddMovies";
 import Movies from "./components/Movies/Movies";
-import UserProfile from "./Profile/UserProfile";
+import AdminProfile from "./Profile/AdminProfile";
+//import UserProfile from "./Profile/UserProfile";
+import Userp from "./Profile/Userp";
 import { adminActions, userActions } from "./store";
 
 function App() {
@@ -38,7 +41,10 @@ function App() {
       <Route path="/admin" element={<Admin/>}/>
       <Route path="/auth" element={<Auth/>}/>
       <Route path="/booking/:id" element={<Booking/>}/>
-      <Route path="/user" element={<UserProfile/>}/>
+      {/* <Route path="/user" element={<UserProfile/>}/> */}
+      <Route path="/user-admin" element={<AdminProfile />} />
+      <Route path="/user" element={<Userp/>}/>
+      <Route path="/add" element={<AddMovies/>}/>
       </Routes>
     </section>
     </div>

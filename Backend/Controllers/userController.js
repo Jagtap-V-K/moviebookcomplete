@@ -138,7 +138,9 @@ const getBookingsofUser = async (req, res) => {
     const id = req.params.id;
     let bookings;
     try {
-        bookings = await Bookings.find({user:id});
+        bookings = await Bookings.find({user:id})
+        .populate("user movie");
+       
     } catch(err) {
         return console.log(err);
     }

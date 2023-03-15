@@ -8,11 +8,14 @@ const Booking = () => {
     const [inputs, setInputs] = useState({ seatNumber: "", date: "" });
     const id=useParams().id;
     console.log(id);
+
+
     useEffect(()=>{
         getMoviedetails(id).then((res)=>{
             setMovie(res.movie);
         })
     },[id]);
+    
     console.log(movie);
 
     const handleChange = (e) => {
@@ -32,7 +35,7 @@ const Booking = () => {
 
 
   return (
-    <div>
+    <>
          {movie && 
                 <Fragment>
                     
@@ -117,7 +120,7 @@ const Booking = () => {
                     </Box>
                 </Fragment>
             }
-    </div>
+            </>
   )
 }
 

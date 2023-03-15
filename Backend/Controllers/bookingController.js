@@ -38,8 +38,6 @@ const Booking=async(req,res,next)=>{
          session.startTransaction();
         exisitingUser.bookings.push(newBooking)
         exisitingMovie.bookings.push(newBooking);
-      
-         
         await exisitingUser.save({ session });
         await exisitingMovie.save({ session });
         await newBooking.save({ session });
@@ -61,7 +59,9 @@ const Booking=async(req,res,next)=>{
             message:"something Went Wrong"
         })
     }
+    console.log(newBooking);
     return res.status(201).json({newBooking});
+    
 }
 
 

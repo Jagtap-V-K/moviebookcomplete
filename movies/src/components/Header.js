@@ -62,7 +62,7 @@ dispatch(isAdmin?adminActions.logout():userActions.logout());
         {isAdminLoggedIn && (
           <>
           <Tab LinkComponent={Link} to='/add' label="Add Movie"/>
-          <Tab LinkComponent={Link} to='/' label="Profile"/>
+          <Tab LinkComponent={Link} to='/user-admin' label="Profile"/>
           <Tab onClick={()=>logout(true)} LinkComponent={Link} to='/' label="Logout"/>
           </>
         )}
