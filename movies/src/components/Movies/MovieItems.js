@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const MovieItems = ({title,releaseDate,posterUrl,id}) => {
   return (
-    <Card sx={{ width: 250,height:320,margin:2,borderRadius:5,":hover":{
+    <Card sx={{ width: 250,height:340,margin:2,borderRadius:5,":hover":{
       boxShadow:"10px 10px 20px #ccc",
     }, }}>
      <img height={"50%"} width="100%" src={posterUrl} alt={title} />
@@ -17,7 +17,7 @@ const MovieItems = ({title,releaseDate,posterUrl,id}) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button LinkComponent={Link} to={`/booking/${id}`} sx={{margin:'auto'}} size="small">BOOK</Button>
+        <Button variant='contained'  LinkComponent={Link} to={`/booking/${id}`} sx={{margin:'auto',bgcolor:"#2b2d42"}} size="small">BOOK</Button>
       </CardActions>
     </Card>
   )

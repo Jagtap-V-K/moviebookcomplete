@@ -29,7 +29,7 @@ function App() {
     {
       dispatch(adminActions.login());
     }
-  },[])
+  },[dispatch])
   return (
     <div>
     {/* Header */}
@@ -38,13 +38,35 @@ function App() {
       <Routes>
       <Route path="/" element={<Homepage/>}/>
       <Route path="/movies" element={<Movies/>}/>
-      <Route path="/admin" element={<Admin/>}/>
-      <Route path="/auth" element={<Auth/>}/>
-      <Route path="/booking/:id" element={<Booking/>}/>
-      {/* <Route path="/user" element={<UserProfile/>}/> */}
-      <Route path="/user-admin" element={<AdminProfile />} />
-      <Route path="/user" element={<Userp/>}/>
-      <Route path="/add" element={<AddMovies/>}/>
+
+   { 
+      !isUserLoggedIn && !isAdminLoggedIn && ( 
+       <>
+          <Route path="/admin" element={<Admin/>}/>
+          <Route path="/auth" element={<Auth/>}/>
+      </>
+
+    )}
+
+      
+      { 
+        isUserLoggedIn && !isAdminLoggedIn &&
+      (
+        <>
+            <Route path="/user" element={<Userp/>}/>
+            <Route path="/booking/:id" element={<Booking/>}/>
+        </>
+      )}
+
+     {isAdminLoggedIn && !isUserLoggedIn && 
+     (
+      
+        <>
+            <Route path="/user-admin" element={<AdminProfile />} />
+            <Route path="/add" element={<AddMovies/>}/>
+        </>
+      )}
+
       </Routes>
     </section>
     </div>
