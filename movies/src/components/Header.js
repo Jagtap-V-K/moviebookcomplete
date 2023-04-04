@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {AppBar, Toolbar,Box, Tabs, Tab, Autocomplete, TextField, IconButton} from '@mui/material'
+import { AppBar, Toolbar, Box, Tabs, Tab, Autocomplete, TextField, IconButton } from '@mui/material'
 import MovieIcon from '@mui/icons-material/Movie'
 import { getAllMovies } from '../api-helper/api-helpers'
 import { Link, useNavigate } from 'react-router-dom'
@@ -9,82 +9,82 @@ import { adminActions, userActions } from '../store'
 // const dummyArray=["IronMan","Pathaan","Selfie","ABCD"]
 
 const Header = () => {
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const isAdminLoggedIn=useSelector((state)=>state.admin.isLoggedIn);
-  const isUserLoggedIn=useSelector((state)=>state.user.isLoggedIn);
-const [value,setvalue]=useState();
-const [movies,setmovies]=useState([]);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAdminLoggedIn = useSelector((state) => state.admin.isLoggedIn);
+  const isUserLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const [value, setvalue] = useState();
+  const [movies, setmovies] = useState([]);
 
 
 
-useEffect(()=>{
-getAllMovies().then((data)=>{
-  setmovies(data.movies);
-}).catch((err)=>{
-console.log(err)
-});
-},[])
+  useEffect(() => {
+    getAllMovies().then((data) => {
+      setmovies(data.movies);
+    }).catch((err) => {
+      console.log(err)
+    });
+  }, [])
 
-const logout=(isAdmin)=>{
-dispatch(isAdmin?adminActions.logout():userActions.logout());
-}
+  const logout = (isAdmin) => {
+    dispatch(isAdmin ? adminActions.logout() : userActions.logout());
+  }
 
-const handleChange=(e,val)=>{
-const movie=movies.find((m)=>m.title===val)
-console.log(movie);
-if(isUserLoggedIn){
-navigate(`/booking/${movie._id}`)
-}
-};
+  const handleChange = (e, val) => {
+    const movie = movies.find((m) => m.title === val)
+    console.log(movie);
+    if (isUserLoggedIn) {
+      navigate(`/booking/${movie._id}`)
+    }
+  };
   return (
-  <AppBar position="sticky" sx={{bgcolor:'#2b2b42'}}>
-    <Toolbar>
-  <Box width={"30%"}>
-  <IconButton LinkComponent={Link} to="/">
-  <MovieIcon/>
-  </IconButton>
-  </Box>
-    
-    
-    <Box width={"30%"} margin={"auto"}>
-    <Autocomplete
-       onChange={handleChange}
-        freeSolo
-        options={movies.map((option) => option.title)}
-        renderInput={(params) => <TextField sx={{input:{color:"white"}}} variant ='standard' {...params} placeholder="Search Movies" />}
-      />
-    </Box>
-    <Box display={"flex"}>
-    <Tabs textColor='inherit' indicatorColor='secondary' value={value} onChange={(e,val)=>{setvalue(val)}}>
-    
-    <Tab LinkComponent={Link} to='/movies' label ="All Movies"/>
+    <AppBar position="sticky" sx={{ bgcolor: '#2b2b42' }}>
+      <Toolbar>
+        <Box width={"30%"}>
+          <IconButton  sx={{color:"greenyellow"}} LinkComponent={Link} to="/">
+            <MovieIcon />
+          </IconButton>
+        </Box>
 
-{ !isAdminLoggedIn && !isUserLoggedIn && <>
 
-  <Tab LinkComponent={Link} to='/auth' label="Auth"/>
-<Tab LinkComponent={Link} to='/admin' label="Admin"/>
-</>
-}
+        <Box width={"30%"} margin={"auto"}>
+          <Autocomplete
+            onChange={handleChange}
+            freeSolo
+            options={movies.map((option) => option.title)}
+            renderInput={(params) => <TextField sx={{ input: { color: "white" } }} variant='standard' {...params} placeholder="Search Movies" />}
+          />
+        </Box>
+        <Box display={"flex"}>
+          <Tabs textColor='inherit' indicatorColor='secondary' value={value} onChange={(e, val) => { setvalue(val) }}>
 
-        {isUserLoggedIn && (
-          <>
-          <Tab LinkComponent={Link} to='/user' label="Profile"/>
-          <Tab onClick={()=>logout(false)} LinkComponent={Link} to='/' label="Logout"/>
-          </>
-        )}
-        {isAdminLoggedIn && (
-          <>
-          <Tab LinkComponent={Link} to='/add' label="Add Movie"/>
-          <Tab LinkComponent={Link} to='/user-admin' label="Profile"/>
-          <Tab onClick={()=>logout(true)} LinkComponent={Link} to='/' label="Logout"/>
-          </>
-        )}
-    </Tabs>
-    </Box>
-    </Toolbar>
-  
-  </AppBar>
+            <Tab LinkComponent={Link} to='/movies' label="All Movies" />
+
+            {!isAdminLoggedIn && !isUserLoggedIn && <>
+
+              <Tab LinkComponent={Link} to='/auth' label="Auth" />
+              <Tab LinkComponent={Link} to='/admin' label="Admin" />
+            </>
+            }
+
+            {isUserLoggedIn && (
+              <>
+                <Tab LinkComponent={Link} to='/user' label="Profile" />
+                <Tab onClick={() => logout(false)} LinkComponent={Link} to='/' label="Logout" />
+              </>
+            )}
+            {isAdminLoggedIn && (
+              <>
+                <Tab LinkComponent={Link} to='/add' label="Add Movie" />
+                <Tab LinkComponent={Link} to='/user-admin' label="Profile" />
+                <Tab onClick={() => logout(true)} LinkComponent={Link} to='/' label="Logout" />
+              </>
+            )}
+          </Tabs>
+        </Box>
+      </Toolbar>
+
+    </AppBar>
   )
 }
 

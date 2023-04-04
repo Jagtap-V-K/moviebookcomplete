@@ -7,7 +7,8 @@ import {Provider} from 'react-redux'
 import {BrowserRouter} from 'react-router-dom';
 import { store } from './store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-axios.defaults.baseURL="http://localhost:4000";
+// axios.defaults.baseURL="http://localhost:5000";
+axios.defaults.baseURL="https://mernappbackend-9086.onrender.com";
 root.render(
   <React.StrictMode>
   <BrowserRouter>
